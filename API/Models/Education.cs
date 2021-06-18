@@ -11,6 +11,7 @@ namespace API.Models
         public int EducationId { get; set; }
         public string Degree { get; set; }
         public string GPA { get; set; }
+        public int UniversityId { get; set; }
         public University University { get; set; }
         public ICollection<Profiling> Profilings { get; set; }
     }

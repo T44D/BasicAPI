@@ -32,5 +32,10 @@ namespace API.Context
                 .HasMany(p => p.Profilings)
                 .WithOne(e => e.Education);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
     }
 }

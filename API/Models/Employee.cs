@@ -11,10 +11,11 @@ namespace API.Models
         public string NIK { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Gender { get; set; }
         public string Email { get; set; }
         public int Salary { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime BirthDate { get; set; }
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

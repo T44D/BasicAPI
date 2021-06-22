@@ -21,14 +21,24 @@ namespace API.Controllers
         public ActionResult Register(RegisterVM registerVM)
         {
             var response = repository.Register(registerVM);
-            if (response != 0)
+            if (response == 3)
             {
                 var get = Ok(new { status = HttpStatusCode.OK, result = response, message = "Success" });
                 return get;
             }
+            else if (response == 2)
+            {
+                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to register(University tidak ditemukan)" });
+                return get;
+            }
+            else if (response == 1)
+            {
+                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to register(Email sudah digunakan)" });
+                return get;
+            }
             else
             {
-                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to register" });
+                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to register(Nik sudah digunakan)" });
                 return get;
             }
         }

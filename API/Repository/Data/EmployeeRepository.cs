@@ -1,6 +1,7 @@
 ﻿using API.Context;
 using API.Models;
 using API.ViewModel;
+using System.Linq;
 
 namespace API.Repository.Data
 {
@@ -17,50 +18,56 @@ namespace API.Repository.Data
             Account account = new Account();
             Education education = new Education();
             Profiling profiling = new Profiling();
-            var university = context.Universities.Find(registerVM.UniversityId);
-            if (university != null)
+            var check1 = context.Employees.Find(registerVM.NIK);
+            if (check1 == null)
             {
-                //Employee
-                employee.NIK = registerVM.NIK;
-                employee.FirstName = registerVM.FirstName;
-                employee.LastName = registerVM.LastName;
-                employee.Gender = (Models.Gender)registerVM.Gender;
-                employee.Email = registerVM.Email;
-                employee.Salary = registerVM.Salary;
-                employee.PhoneNumber = registerVM.PhoneNumber;
-                employee.BirthDate = registerVM.BirthDate;
-                context.Employees.Add(employee);
-                context.SaveChanges();
-
-                var emp = context.Employees.Find(employee.NIK);
-
-                if (emp != null)
+                var check2 = context.Employees.Where(e => e.Email == registerVM.Email).FirstOrDefault<Employee>();
+                if (check2 == null)
                 {
-                    //Account
-                    account.NIK = emp.NIK;
-                    account.Password = registerVM.Password;
-                    context.Accounts.Add(account);
-                    context.SaveChanges();
+                    var university = context.Universities.Find(registerVM.UniversityId);
+                    if (university != null)
+                    {
+                        //Employee
+                        employee.NIK = registerVM.NIK;
+                        employee.FirstName = registerVM.FirstName;
+                        employee.LastName = registerVM.LastName;
+                        employee.Gender = (Models.Gender)registerVM.Gender;
+                        employee.Email = registerVM.Email;
+                        employee.Salary = registerVM.Salary;
+                        employee.PhoneNumber = registerVM.PhoneNumber;
+                        employee.BirthDate = registerVM.BirthDate;
+                        context.Employees.Add(employee);
+                        context.SaveChanges();
 
-                    //Education
-                    education.Degree = registerVM.Degree;
-                    education.GPA = registerVM.GPA;
-                    education.UniversityId = registerVM.UniversityId;
-                    context.Educations.Add(education);
-                    context.SaveChanges();
-                    int eduId = education.EducationId;
+                        //Account
+                        account.NIK = employee.NIK;
+                        account.Password = registerVM.Password;
+                        context.Accounts.Add(account);
+                        context.SaveChanges();
 
-                    //Profiling
-                    profiling.NIK = emp.NIK;
-                    profiling.EducationId = eduId;
-                    context.Profilings.Add(profiling);
+                        //Education
+                        education.Degree = registerVM.Degree;
+                        education.GPA = registerVM.GPA;
+                        education.UniversityId = registerVM.UniversityId;
+                        context.Educations.Add(education);
+                        context.SaveChanges();
 
-                    var regist = context.SaveChanges();
-                    return regist;
+                        //Profiling
+                        profiling.NIK = employee.NIK;
+                        profiling.EducationId = education.EducationId;
+                        context.Profilings.Add(profiling);
+                        context.SaveChanges();
+
+                        return 3;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
                 }
                 else
                 {
-                    return 0;
+                    return 1;
                 }
             }
             else
@@ -71,10 +78,11 @@ namespace API.Repository.Data
 
         public int Login(LoginVM loginVM)
         {
-            var emp = context.Accounts.Find(loginVM.NIK);
+            var emp = context.Employees
+                .Where(e => (e.NIK == loginVM.NIK) || (e.Email == loginVM.Email)).FirstOrDefault<Employee>();
             if (emp != null)
             {
-                if (emp.Password.Equals(loginVM.Password))
+                if (emp.Account.Password.Equals(loginVM.Password))
                 {
                     return 2;
                 }

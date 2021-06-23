@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "pph8ZPM/lkZtMX8GmJUfehS1dXtONYlmRqEOhkWkeRq6FrCkXF6g8EXxCaSg1HqocXx9txZt4kqAjWuTjjrmHQ==",
+  "dgSpecHash": "vn/rzCU3js4PwGZ/ocr/ffxIQalaK6q5SZzPxoNSc66fh3lspDyO9rjpnolaslrdMq1q9vmhPKWbzujjfepAFw==",
   "success": true,
   "projectFilePath": "D:\\Document\\METRODATA\\Tugas Bootcamp\\API\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\TAAD\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\TAAD\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\TAAD\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\TAAD\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",

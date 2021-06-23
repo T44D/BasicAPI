@@ -42,26 +42,5 @@ namespace API.Controllers
                 return get;
             }
         }
-
-        [HttpPost("Login")]
-        public ActionResult Login(LoginVM loginVM)
-        {
-            var response = repository.Login(loginVM);
-            if (response == 2)
-            {
-                var get = Ok(new { status = HttpStatusCode.OK, result = response, message = "Login Success" });
-                return get;
-            }
-            else if (response == 1)
-            {
-                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to Login(password salah)" });
-                return get;
-            }
-            else
-            {
-                var get = BadRequest(new { status = HttpStatusCode.BadRequest, result = response, message = "Fail to Login(nik tidak ditemukan)" });
-                return get;
-            }
-        }
     }
 }

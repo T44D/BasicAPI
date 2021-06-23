@@ -1,5 +1,6 @@
 ﻿using API.Context;
 using API.Models;
+using API.Utils;
 using API.ViewModel;
 using System.Linq;
 
@@ -40,8 +41,9 @@ namespace API.Repository.Data
                         context.SaveChanges();
 
                         //Account
+                        string hash = Hashing.Hash(registerVM.Password);
                         account.NIK = employee.NIK;
-                        account.Password = registerVM.Password;
+                        account.Password = hash;
                         context.Accounts.Add(account);
                         context.SaveChanges();
 
@@ -70,27 +72,6 @@ namespace API.Repository.Data
                     return 1;
                 }
             }
-            else
-            {
-                return 0;
-            }
-        }
-
-        public int Login(LoginVM loginVM)
-        {
-            var emp = context.Employees
-                .Where(e => (e.NIK == loginVM.NIK) || (e.Email == loginVM.Email)).FirstOrDefault<Employee>();
-            if (emp != null)
-            {
-                if (emp.Account.Password.Equals(loginVM.Password))
-                {
-                    return 2;
-                }
-                else
-                {
-                    return 1;
-                }
-            } 
             else
             {
                 return 0;

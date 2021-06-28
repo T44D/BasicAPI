@@ -5,6 +5,6 @@ namespace API.Repository.Data
 {
     public class ProfilingRepository : GeneralRepository<MyContext, Profiling, int>
     {
-        public ProfilingRepository(MyContext context) : base(context) {}
+        public ProfilingRepository(MyContext context) : base(context) { }
     }
 }

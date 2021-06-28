@@ -5,6 +5,6 @@ namespace API.Repository.Data
 {
     public class UniversityRepository : GeneralRepository<MyContext, University, int>
     {
-        public UniversityRepository(MyContext context) : base(context) {}
+        public UniversityRepository(MyContext context) : base(context) { }
     }
 }

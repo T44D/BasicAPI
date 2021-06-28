@@ -9,6 +9,6 @@ namespace API.Controllers
     [ApiController]
     public class ProfilingController : BaseController<Profiling, ProfilingRepository, int>
     {
-        public ProfilingController(ProfilingRepository repository) : base(repository) {}
+        public ProfilingController(ProfilingRepository repository) : base(repository) { }
     }
 }

@@ -9,6 +9,6 @@ namespace API.Controllers
     [ApiController]
     public class EducationController : BaseController<Education, EducationRepository, int>
     {
-        public EducationController(EducationRepository repository) : base(repository) {}
+        public EducationController(EducationRepository repository) : base(repository) { }
     }
 }

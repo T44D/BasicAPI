@@ -2,6 +2,7 @@
 using API.Models;
 using API.Repository.Data;
 using API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -15,6 +16,40 @@ namespace API.Controllers
         public EmployeeController(EmployeeRepository repository) : base(repository)
         {
             this.repository = repository;
+        }
+
+        [Authorize]
+        [HttpGet("UserData")]
+        public ActionResult UserData()
+        {
+            var response = repository.UserData();
+            if (response != null)
+            {
+                var get = Ok(new { status = HttpStatusCode.OK, result = response, message = "Success" });
+                return get;
+            }
+            else
+            {
+                var get = NotFound(new { status = HttpStatusCode.NotFound, result = response, message = "Data Empty" });
+                return get;
+            }
+        }
+
+        [Authorize]
+        [HttpGet("UserData/{nik}")]
+        public ActionResult UserData(string nik)
+        {
+            var response = repository.Profil(nik);
+            if (response != null)
+            {
+                var get = Ok(new { status = HttpStatusCode.OK, result = response, message = "Success" });
+                return get;
+            }
+            else
+            {
+                var get = NotFound(new { status = HttpStatusCode.NotFound, result = response, message = "Not Found" });
+                return get;
+            }
         }
 
         [HttpPost("Register")]

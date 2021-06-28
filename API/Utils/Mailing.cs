@@ -8,7 +8,7 @@ namespace API.Utils
 {
     public class Mailing
     {
-        internal static void SendMail(string email, string guid, string name) 
+        internal static void SendMail(string email, string guid, string name)
         {
             using (MailMessage mail = new MailMessage())
             {

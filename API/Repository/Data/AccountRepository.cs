@@ -2,7 +2,6 @@
 using API.Models;
 using API.Utils;
 using API.ViewModel;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace API.Repository.Data
@@ -10,7 +9,7 @@ namespace API.Repository.Data
     public class AccountRepository : GeneralRepository<MyContext, Account, string>
     {
         private readonly MyContext context;
-        public AccountRepository(MyContext context) : base(context) 
+        public AccountRepository(MyContext context) : base(context)
         {
             this.context = context;
         }
